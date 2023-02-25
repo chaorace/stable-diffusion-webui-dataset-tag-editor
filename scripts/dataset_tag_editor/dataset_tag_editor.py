@@ -48,8 +48,8 @@ def interrogate_image(path: str, interrogator_name: str, threshold_booru, thresh
                 else:
                     with it as cap:
                         res = cap.predict(img)
-        return res
-            
+        # Sort for consistency since not all interrogators produce ordered results (e.g.: wd-v1-4-vit-tagger-v2)
+        return dict(sorted(res.items(), reverse=False))
 
 class DatasetTagEditor:
     def __init__(self):
