@@ -708,6 +708,7 @@ def on_ui_tabs():
                     with gr.Row():
                         dd_intterogator_names_si = gr.Dropdown(label = 'Interrogator', choices=dte.INTERROGATOR_NAMES, value=cfg_edit_selected.use_interrogator_name, interactive=True, multiselect=False)
                         btn_interrogate_si = gr.Button(value='Interrogate')
+                    tb_interrogate_selected_image_display = gr.HighlightedText(label='Interrogate Probability')
                     tb_interrogate_selected_image = gr.Textbox(label='Interrogate Result', interactive=True, lines=6)
                     with gr.Row():
                         btn_copy_interrogate = gr.Button(value='Copy and Overwrite')
@@ -1046,9 +1047,9 @@ def on_ui_tabs():
         )
 
         btn_interrogate_si.click(
-            fn=interrogate_selected_image,
+            fn=lambda a, b, c, d, e: (lambda res=interrogate_selected_image(a, b, c, d, e): [', '.join(res), list(dict.items(res))])(),
             inputs=[dd_intterogator_names_si, cb_use_custom_threshold_booru, sl_custom_threshold_booru, cb_use_custom_threshold_waifu, sl_custom_threshold_waifu],
-            outputs=[tb_interrogate_selected_image]
+            outputs=[tb_interrogate_selected_image, tb_interrogate_selected_image_display]
         )
 
         btn_copy_interrogate.click(

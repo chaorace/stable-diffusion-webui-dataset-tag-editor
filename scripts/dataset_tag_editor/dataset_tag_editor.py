@@ -35,7 +35,7 @@ def interrogate_image(path: str, interrogator_name: str, threshold_booru, thresh
     try:
         img = Image.open(path).convert('RGB')
     except:
-        return ''
+        return dict()
     else:
         for it in INTERROGATORS:
             if it.name() == interrogator_name:
@@ -48,7 +48,7 @@ def interrogate_image(path: str, interrogator_name: str, threshold_booru, thresh
                 else:
                     with it as cap:
                         res = cap.predict(img)
-        return ', '.join(res)
+        return res
             
 
 class DatasetTagEditor:
